@@ -666,9 +666,395 @@ footer {
 }
 
 .announcement-banner {
-  background-color: #4caf50;
+  background: linear-gradient(135deg, #4caf50, #388e3c);
   color: white;
   text-align: center;
-  padding: 15px;
+  padding: 12px 15px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+  animation: slideDown 0.4s ease;
+}
+
+.announcement-banner.hidden {
+  display: none !important;
+}
+
+.announcement-banner .announcement-text {
+  display: inline;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Announcement banner carousel dots */
+.announcement-dots {
+  display: flex;
+  gap: 6px;
+  margin-left: 12px;
+}
+
+.announcement-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.announcement-dot.active {
+  background: white;
+}
+
+/* Manage Announcements button */
+#manage-announcements-button {
+  margin-right: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#manage-announcements-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Announcements Management Modal ---- */
+.announcements-modal-content {
+  max-width: 600px;
+  width: 95%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.announcements-modal-content h3 {
+  color: var(--primary);
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.close-announcements-modal,
+.close-announcement-form {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  line-height: 1;
+}
+
+.announcements-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.add-announcement-btn {
+  background: linear-gradient(145deg, var(--success), #1b5e20);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(46, 125, 50, 0.3);
+}
+
+.add-announcement-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
+}
+
+.add-announcement-btn span {
+  font-size: 1.1rem;
   font-weight: bold;
+}
+
+.announcements-list {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 100px;
+  max-height: 55vh;
+}
+
+.announcement-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 10px;
+  background: var(--surface);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.announcement-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.announcement-item.expired {
+  opacity: 0.6;
+  border-left: 3px solid var(--error);
+}
+
+.announcement-item.active {
+  border-left: 3px solid var(--success);
+}
+
+.announcement-item.scheduled {
+  border-left: 3px solid var(--warning);
+}
+
+.announcement-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.announcement-item-title {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.95rem;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.announcement-status-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.badge-active {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.badge-expired {
+  background: var(--error-light);
+  color: var(--error);
+}
+
+.badge-scheduled {
+  background: var(--warning-light);
+  color: #856404;
+}
+
+.announcement-item-message {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.announcement-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.announcement-item-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.announcement-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.edit-announcement-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 5px 14px;
+  border-radius: 15px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-announcement-btn:hover {
+  background: var(--primary-light);
+}
+
+.delete-announcement-btn {
+  background: var(--error-light);
+  color: var(--error);
+  border: 1px solid var(--error);
+  padding: 5px 14px;
+  border-radius: 15px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-announcement-btn:hover {
+  background: var(--error);
+  color: white;
+}
+
+/* ---- Announcement Form Modal ---- */
+.announcement-form-content {
+  max-width: 500px;
+  width: 95%;
+}
+
+.announcement-form-content h3 {
+  color: var(--primary);
+  font-size: 1.15rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#announcement-form .form-group {
+  margin-bottom: 12px;
+}
+
+#announcement-form label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+#announcement-form input[type="text"],
+#announcement-form textarea,
+#announcement-form input[type="datetime-local"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: Arial, sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#announcement-form input:focus,
+#announcement-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(83, 75, 174, 0.15);
+}
+
+#announcement-form textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-group-half {
+  flex: 1;
+}
+
+.optional-label {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.required-label {
+  color: var(--error);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.cancel-btn {
+  background: var(--background);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+  background: var(--border);
+}
+
+.save-btn {
+  background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+  color: white;
+  border: none;
+  padding: 8px 22px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(26, 35, 126, 0.3);
+}
+
+.save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(26, 35, 126, 0.4);
+}
+
+.no-announcements {
+  text-align: center;
+  padding: 30px 15px;
+  color: var(--text-secondary);
+}
+
+.no-announcements p {
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* Responsive adjustments for announcement modals */
+@media (max-width: 767px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .announcements-modal-content {
+    max-height: 90vh;
+  }
+
+  .announcement-item-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
 }
